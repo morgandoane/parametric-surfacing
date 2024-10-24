@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	font-synthesis: none;
@@ -9,7 +13,3 @@
 body {
 	margin: 0;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

@@ -13,6 +13,7 @@
     "@headlessui/react": "^2.1.10",
     "@react-three/drei": "^9.114.6",
     "@react-three/fiber": "^8.17.10",
+    "@tailwindcss/typography": "^0.5.15",
     "@types/three": "^0.169.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
