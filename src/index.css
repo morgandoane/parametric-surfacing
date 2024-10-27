@@ -2,8 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	font-family: 'NovaletraSerif';
+	src: local('NovaletraSerif'),
+		url(./assets/typography/Novaletra/NovaletraSerifCF-Medium.otf)
+			format('opentype');
+}
+
+@font-face {
+	font-family: 'Greycliff';
+	src: local('Greycliff'),
+		url(./assets/typography/Greycliff/GreycliffCF-Medium.otf) format('opentype');
+}
+
 :root {
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	font-family: NovaletraSerif, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;

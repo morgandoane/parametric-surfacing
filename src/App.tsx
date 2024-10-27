@@ -1,11 +1,11 @@
-import Klein from '@scenes/Klein';
+import Home from '@scenes/Home';
 import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 const App: FC = () => {
 	return (
 		<Routes>
-			<Route index element={<Klein />} />
+			<Route index element={<Home />} />
 		</Routes>
 	);
 };

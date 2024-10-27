@@ -13,7 +13,7 @@ export default {
 			fontSize: {
 				'heading-1': [
 					'2.5rem',
-					{ lineHeight: '1.2', letterSpacing: '-0.02em', fontWeight: 800 },
+					{ lineHeight: '1.2', letterSpacing: '-0.02em', fontWeight: 600 },
 				], // 40px
 				'heading-2': [
 					'2.25rem',
