@@ -1,10 +1,10 @@
-import { OrbitControls } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
 import { State } from '@scenes/Home';
 import { getRandomLifeExpectancy } from '@utils/getRandomLifeExpectancy';
 import { FC, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { ParametricGeometry } from 'three/examples/jsm/Addons.js';
+import { OrbitControls } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
 
 export interface SimulationProps {
 	state: State;
@@ -70,7 +70,7 @@ const randomSoul = (): Soul => ({
 	name: 'John Doe',
 	age: 0,
 	birth: 2000,
-	expectency: 85 + Math.random() * 20,
+	expectency: getRandomLifeExpectancy(),
 });
 
 const defaultSouls = (state: State): Soul[] =>
@@ -205,6 +205,7 @@ const Simulation: FC<SimulationProps> = ({
 				camera={{ position: [0, 0, 20] }}
 			>
 				<ambientLight intensity={0.5} />
+				<directionalLight position={[5, 5, 5]} intensity={1} />
 				<mesh ref={kleinRef} geometry={kleinGeometry}>
 					<meshStandardMaterial color="#fff" wireframe />
 				</mesh>

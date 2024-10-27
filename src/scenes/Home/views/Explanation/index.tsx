@@ -64,7 +64,7 @@ const Explanation: FC<ExplanationProps> = ({ next, country }) => {
 						functions of time's infinite cycle.
 					</p>
 					<Canvas
-						camera={{ position: [0, 0, 10] }}
+						camera={{ position: [0, 0, 20] }}
 						style={{ height: '200px', width: '200px' }}
 					>
 						<OrbitControls enableZoom />
