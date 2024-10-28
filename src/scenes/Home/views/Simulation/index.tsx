@@ -120,9 +120,7 @@ const getColor = (generation: number): string => {
 	return hues[generation % hues.length];
 };
 
-const bumpState = (state: SimulationState): SimulationState => {
-	const bump = 0.3;
-
+const bumpState = (state: SimulationState, bump: number): SimulationState => {
 	const newSouls: SoulCollection[] = state.souls.map(({ souls, isUser }) => {
 		const latest = souls[souls.length - 1];
 		if (latest.age >= latest.expectency) {
@@ -145,6 +143,8 @@ const Simulation: FC<SimulationProps> = ({
 }) => {
 	const kleinRef = useRef<THREE.Mesh>(null);
 
+	const [bump, setBump] = useState(50);
+
 	const [state, setState] = useState<SimulationState>({
 		souls: [
 			...defaultSouls({ name, country, year }).map((soul) => ({
@@ -158,20 +158,50 @@ const Simulation: FC<SimulationProps> = ({
 		],
 	});
 
+	const intervalTiming = 50;
+
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setState(bumpState);
-		}, 50);
+			setState((s) => bumpState(s, bump / 100));
+		}, intervalTiming);
 
 		return () => clearInterval(interval);
-	}, []);
-	const maxGenerations = state.souls.reduce(
-		(acc, { souls }) => Math.max(acc, souls.length),
-		0
-	);
+	}, [bump]);
+
+	const bumpRate = (bump / 100) * (1000 / intervalTiming);
+
+	const user = state.souls[state.souls.length - 1];
+	const totalYears =
+		user.souls.slice(0, -1).reduce((acc, soul) => acc + soul.expectency, 0) +
+		user.souls[user.souls.length - 1].age;
+	const thisYear = user.souls[user.souls.length - 1].birth + totalYears;
+
 	return (
 		<div className="h-screen flex items-stretch">
 			<div className="p-4 flex items-stretch gap-1 relative">
+				<div
+					style={{
+						position: 'absolute',
+						bottom: '24px',
+						right: '0px',
+						transform: 'translateX(100%)',
+						display: 'flex',
+						flexDirection: 'column',
+						zIndex: 100,
+					}}
+				>
+					<p className="text-white text-heading-2">{Math.round(thisYear)}</p>
+					<div>
+						<p className="text-white text-heading-4">{`${bumpRate.toFixed(
+							0
+						)} yrs / second`}</p>
+						<input
+							type="range"
+							value={bump}
+							onChange={(e) => setBump(+e.target.value)}
+						/>
+					</div>
+				</div>
 				{state.souls.map(({ souls, isUser }, i) => {
 					const totalYears =
 						souls.slice(0, -1).reduce((acc, soul) => acc + soul.expectency, 0) +
@@ -181,7 +211,13 @@ const Simulation: FC<SimulationProps> = ({
 						totalYears === 0 ? 0 : age / totalYears;
 
 					return (
-						<div key={`soulBar-${i}`} className="w-1 flex flex-col">
+						<div
+							key={`soulBar-${i}`}
+							className={`flex flex-col`}
+							style={{
+								width: isUser ? '16px' : '2px',
+							}}
+						>
 							{souls.map((soul, j) => (
 								<div
 									key={`soul-${soul.id}`}
@@ -209,7 +245,7 @@ const Simulation: FC<SimulationProps> = ({
 				<mesh ref={kleinRef} geometry={kleinGeometry}>
 					<meshStandardMaterial color="#fff" wireframe />
 				</mesh>
-				{state.souls.map(({ souls }, i) => {
+				{state.souls.map(({ souls, isUser }, i) => {
 					const soul = souls[souls.length - 1];
 					const ratio = soul.age / soul.expectency;
 					const boundary = 0.73;
@@ -220,7 +256,7 @@ const Simulation: FC<SimulationProps> = ({
 					return (
 						<mesh key={soul.id} position={[position.x, position.y, position.z]}>
 							<sphereGeometry args={[0.5, 24, 24]} />
-							<meshStandardMaterial color={getColor(souls.length)} wireframe />
+							<meshStandardMaterial color={getColor(souls.length)} />
 						</mesh>
 					);
 				})}
