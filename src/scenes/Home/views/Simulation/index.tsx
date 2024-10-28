@@ -143,7 +143,7 @@ const Simulation: FC<SimulationProps> = ({
 }) => {
 	const kleinRef = useRef<THREE.Mesh>(null);
 
-	const [bump, setBump] = useState(50);
+	const [bump, setBump] = useState(20);
 
 	const [state, setState] = useState<SimulationState>({
 		souls: [
