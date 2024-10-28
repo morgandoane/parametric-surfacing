@@ -26,7 +26,7 @@ const Home: FC = () => {
 
 	const [state, setState] = useState<State>({
 		name: '',
-		year: 2000,
+		year: null,
 		country: '',
 	});
 
