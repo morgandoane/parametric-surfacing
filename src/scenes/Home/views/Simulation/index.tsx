@@ -255,8 +255,11 @@ const Simulation: FC<SimulationProps> = ({
 
 					return (
 						<mesh key={soul.id} position={[position.x, position.y, position.z]}>
-							<sphereGeometry args={[0.5, 24, 24]} />
-							<meshStandardMaterial color={getColor(souls.length)} />
+							<sphereGeometry args={[isUser ? 1 : 0.5, 24, 24]} />
+							<meshStandardMaterial
+								color={getColor(souls.length)}
+								wireframe={!isUser}
+							/>
 						</mesh>
 					);
 				})}
