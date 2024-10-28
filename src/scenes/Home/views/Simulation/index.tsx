@@ -211,11 +211,11 @@ const Simulation: FC<SimulationProps> = ({
 				</mesh>
 				{state.souls.map(({ souls }, i) => {
 					const soul = souls[souls.length - 1];
+					const ratio = soul.age / soul.expectency;
+					const boundary = 0.73;
+					const wrappedRatio = ratio + boundary;
 
-					const position = kleinPoint(
-						(soul.age / soul.expectency) * Math.PI * 2,
-						i
-					);
+					const position = kleinPoint(wrappedRatio * Math.PI * 2, i);
 
 					return (
 						<mesh key={soul.id} position={[position.x, position.y, position.z]}>
