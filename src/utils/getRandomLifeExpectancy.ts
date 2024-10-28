@@ -1,7 +1,7 @@
 export function getRandomLifeExpectancy(): number {
 	// Example mortality rates for each 5-year age bracket, replace with real data for accuracy
 	const mortalityRates = [
-		0.005, // 0-4 years
+		0.0001, // 0-4 years
 		0.001, // 5-9 years
 		0.001, // 10-14 years
 		0.001, // 15-19 years
